@@ -6,6 +6,16 @@ document.getElementById("searchbutton").addEventListener("click", function () {
     city
   )}&appid=${apiKey}&units=metric`;
 
+  const weatherImages = {
+    "clear sky": "images/clear-sky.jpg",
+    "broken clouds": "images/broken-clouds.jpg",
+    "few clouds": "images/few-clouds.jpg",
+    "light rain": "images/light-rain.png",
+    "moderate rain": "images/moderate-rain.jpg",
+    "overcast clouds": "images/overcast-clouds.jpg",
+    "scattered clouds": "images/scattered-clouds.jpg",
+  };
+
   fetch(apiUrl)
     .then((response) => {
       if (!response.ok) {
@@ -24,6 +34,18 @@ document.getElementById("searchbutton").addEventListener("click", function () {
       <h2>Ville : ${city}</h2>
       <p >Température : ${température}°C</p>
       <p>Description : ${description} </p>
+      <img id="image" src="">
+       
     `;
+
+      updateWeatherImage(description);
     });
+
+  function updateWeatherImage(description) {
+    const weatherImageElement = document.getElementById("image");
+    const imageUrl =
+      weatherImages[description.toLowerCase()] || "image/default.jpg";
+
+    weatherImageElement.src = imageUrl;
+  }
 });
