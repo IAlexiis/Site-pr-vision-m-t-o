@@ -7,14 +7,14 @@ document.getElementById("searchbutton").addEventListener("click", function () {
   )}&appid=${apiKey}&units=metric`;
 
   const weatherImages = {
-    "clear sky": "images/clear-sky.jpg",
-    "broken clouds": "images/broken-clouds.jpg",
-    "few clouds": "images/few-clouds.jpg",
-    "light rain": "images/light-rain.png",
-    "moderate rain": "images/moderate-rain.jpg",
-    "overcast clouds": "images/overcast-clouds.jpg",
-    "scattered clouds": "images/scattered-clouds.jpg",
-    haze: "images/haze.jpg",
+    "clear sky": "/Site-prevision-meteo/images/clear-sky.jpg",
+    "broken clouds": "/Site-prevision-meteo/images/broken-clouds.jpg",
+    "few clouds": "/Site-prevision-meteo/images/few-clouds.jpg",
+    "light rain": "/Site-prevision-meteo/images/light-rain.png",
+    "moderate rain": "/Site-prevision-meteo/images/moderate-rain.jpg",
+    "overcast clouds": "/Site-prevision-meteo/images/overcast-clouds.jpg",
+    "scattered clouds": "/Site-prevision-meteo/images/scattered-clouds.jpg",
+    haze: "/Site-prevision-meteo/images/haze.jpg",
   };
 
   fetch(apiUrl)
