@@ -14,6 +14,7 @@ document.getElementById("searchbutton").addEventListener("click", function () {
     "moderate rain": "images/moderate-rain.jpg",
     "overcast clouds": "images/overcast-clouds.jpg",
     "scattered clouds": "images/scattered-clouds.jpg",
+    haze: "images/haze.jpg",
   };
 
   fetch(apiUrl)
