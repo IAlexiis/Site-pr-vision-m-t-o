@@ -10,12 +10,13 @@
     <div class="container">
       <h1>Météo Actuelle</h1>
       <div>
-        <form action="">
+        <form action="" id="formulaire">
           <input
             type="text"
             id="city-input"
             placeholder="Entrez le nom d'une ville"
           />
+          <ul id="suggestion-list"></ul>
         </form>
 
         <button id="searchbutton" onclick="getWeather()">Voir la météo</button>

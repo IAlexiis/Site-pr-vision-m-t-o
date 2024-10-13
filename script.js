@@ -50,3 +50,83 @@ document.getElementById("searchbutton").addEventListener("click", function () {
     weatherImageElement.src = imageUrl;
   }
 });
+
+const input = document.getElementById("city-input");
+input.addEventListener("input", handleInputChange);
+
+document.addEventListener("click", (event) => {
+  const isClickingInsideInput = input.contains(event.target);
+  const suggestionsList = document.getElementById("suggestion-list");
+  const isClickInsideSuggestions = suggestionsList.contains(event.target);
+
+  if (!isClickingInsideInput && !isClickInsideSuggestions) {
+    suggestionsList.style.display = "none";
+  }
+});
+
+function handleInputChange(event) {
+  const query = event.target.value;
+
+  hideList(query);
+
+  if (query.trim() === "") {
+    clearSuggestions();
+    return;
+  }
+
+  getCitySuggestions(query);
+}
+
+function getCitySuggestions(query) {
+  fetch(
+    `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=856ccddf81c793a208c47d6b692bedb8`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      let cityNames = data
+        .filter((city) => city.name && city.lat && city.lon && city.country)
+        .map((city) => city.name);
+      cityNames = [...new Set(cityNames)];
+      cityNames.sort((a, b) => a.localeCompare(b));
+      showSuggestions(cityNames);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la récupération des suggestions :", error);
+    });
+}
+
+function showSuggestions(cityNames) {
+  const suggestionsList = document.getElementById("suggestion-list");
+  clearSuggestions();
+
+  cityNames.forEach((city) => {
+    const li = document.createElement("li");
+    li.textContent = city;
+    li.addEventListener("click", () => {
+      selectCity(city);
+    });
+
+    suggestionsList.appendChild(li);
+  });
+}
+
+function selectCity(city) {
+  const input = document.getElementById("city-input");
+  input.value = city;
+  clearSuggestions();
+}
+
+function clearSuggestions() {
+  const suggestionsList = document.getElementById("suggestion-list");
+  suggestionsList.innerHTML = "";
+}
+
+function hideList(query) {
+  const suggestionsList = document.getElementById("suggestion-list");
+  if (typeof query === "string" && query.trim() === "") {
+    suggestionsList.style.display = "none";
+    clearSuggestions();
+  } else {
+    suggestionsList.style.display = "flex";
+  }
+}
